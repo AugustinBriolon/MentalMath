@@ -1,7 +1,9 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { Grid, Heading } from '@radix-ui/themes';
+import { Grid, Heading, Button, Text, Strong } from '@radix-ui/themes';
+import { UpdateIcon } from "@radix-ui/react-icons"
+
 import Header from './_components/Header';
 import getRandomNumber from './_utils/getRandomNumber';
 import getRandomOperator from './_utils/getRandomOperator';
@@ -52,7 +54,7 @@ export default function Home() {
   }, []);
 
   return (
-    <section className='h-screen max-w-default m-auto'>
+    <section className='h-screen max-w-default m-auto p-4'>
       <Header />
       <div className='flex flex-col items-center justify-center h-full space-y-8'>
         <Heading as='h3' size='9'>
@@ -63,13 +65,16 @@ export default function Home() {
             <button
               key={number}
               onClick={() => handleAnswerClick(index)}
-              className='p-8 text-4xl text-blue-800 dark:text-blue-200 border rounded-md bg-blue-100 hover:bg-blue-200 dark:bg-blue-800 dark:hover:bg-blue-900'
+              className='p-8 text-2xl lg:text-4xl text-blue-800 dark:text-blue-200 border rounded-md bg-blue-100 hover:bg-blue-200 dark:bg-blue-800 dark:hover:bg-blue-900'
             >
               {number}
             </button>
           ))}
         </Grid>
-        <p>Score: {score}</p>
+        <Text as="p" size="4">Scrore :  <Strong> {score}</Strong></Text>
+        <Button onClick={() => setScore(0)}>
+          <UpdateIcon width="16" height="16" /> Reset Score
+        </Button>
       </div>
     </section>
   );
