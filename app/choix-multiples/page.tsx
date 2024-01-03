@@ -2,9 +2,10 @@
 
 import { useState, useEffect } from 'react';
 import { Grid, Heading, Button, Text, Strong } from '@radix-ui/themes';
+import AlertModal from '../components/AlertModal';
 import { UpdateIcon } from "@radix-ui/react-icons"
 
-  import getRandomNumber from '../utils/getRandomNumber';
+import getRandomNumber from '../utils/getRandomNumber';
 import getRandomOperator from '../utils/getRandomOperator';
 import performOperation from '../utils/performOperation';
 
@@ -53,7 +54,7 @@ export default function MultiChoices() {
   }, []);
 
   return (
-    <section className='h-screen-header max-w-default m-auto p-4'>
+    <section className='h-screen-header max-w-default m-auto p-4 mx-auto'>
       <div className='flex flex-col items-center justify-center h-full space-y-8'>
         <Heading as='h3' size='9'>
           {question.question}
@@ -70,9 +71,15 @@ export default function MultiChoices() {
           ))}
         </Grid>
         <Text as="p" size="4">Scrore :  <Strong> {score}</Strong></Text>
-        <Button onClick={() => setScore(0)}>
-          <UpdateIcon width="16" height="16" /> Reset Score
-        </Button>
+        <AlertModal
+          buttonName='Recommencer'
+          buttonIcon={<UpdateIcon />}
+          modalTitle='Recommencer'
+          modalText='Êtes-vous sûr de vouloir recommencer ?'
+          modalButtonName='Recommencer'
+          setState={() => setScore(0)}
+          state={0}
+        />
       </div>
     </section>
   );

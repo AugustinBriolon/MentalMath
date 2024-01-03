@@ -7,12 +7,13 @@ interface DataItem {
   randomNumber: number;
 }
 
-const generateSortedData = (length: number): DataItem[] => {
+const generateSortedData = (length: number, min: number, max: number): DataItem[] => {
   return Array.from({ length }, (_, i) => ({
     id: i + 1,
-    randomNumber: Math.floor(Math.random() * 100),
+    randomNumber: Math.floor(Math.random() * (max - min + 1)) + min,
   })).sort((a, b) => b.randomNumber - a.randomNumber);
 };
+
 
 const getRandomUsername = () => {
   const characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
@@ -26,13 +27,13 @@ const getRandomUsername = () => {
 
 export default function Home() {
   const sectionIntervals = [
-    { min: 190, max: 250, sectionName: 'Choix Multiples' },
-    { min: 51, max: 75, sectionName: 'Vrai ou Faux' },
-    { min: 76, max: 100, sectionName: 'Contre la Montre' },
+    { min: 210, max: 250, sectionName: 'Choix Multiples' },
+    { min: 150, max: 180, sectionName: 'Vrai ou Faux' },
+    { min: 45, max: 60, sectionName: 'Contre la Montre' },
   ];
 
   return (
-    <section className='h-screen-header-mobile md:h-screen-header m-auto p-4 space-y-8'>
+    <section className=' max-w-default mx-auto h-screen-header-mobile md:h-screen-header m-auto p-4 space-y-8'>
 
       <div className='space-y-4'>
         <Heading as='h1' size='9' >
@@ -49,7 +50,7 @@ export default function Home() {
 
       <div className="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
         {sectionIntervals.map((interval, sectionIndex) => {
-          const sortedData = generateSortedData(5);
+          const sortedData = generateSortedData(5, interval.min, interval.max);
 
           return (
             <div key={sectionIndex} className="flex flex-col border border-stone-200 divide-y rounded">

@@ -44,7 +44,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="fr">
-      <body className='max-w-default mx-auto'>
+      <body>
         <Theme>
           <Header />
           {children}

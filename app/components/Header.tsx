@@ -21,7 +21,7 @@ export default function Header() {
   ];
 
   return (
-    <div className="w-full">
+    <div className="w-full max-w-default mx-auto">
       <header className='grid grid-cols-2 md:grid-cols-header items-center justify-between w-full p-4 border-b'>
         <Link href="/" className="flex items-center justify-start space-x-2">
           <img src="/favicon/favicon.svg" alt="Logo d'un cerveau vu du haut" className="h-8" />
