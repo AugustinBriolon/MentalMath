@@ -2,13 +2,13 @@ import { AlertDialog, Flex, Button } from "@radix-ui/themes";
 import React, { ReactNode } from "react";
 
 type AlertModalProps = {
-  buttonName: string;
+  buttonName?: string;
   buttonIcon?: ReactNode;
   modalTitle: string;
   modalText: string;
   modalButtonName: string;
   setState: Function;
-  state: any;
+  state?: any;
 };
 
 const AlertModal = ({

@@ -28,7 +28,7 @@ const getRandomUsername = () => {
 export default function Home() {
   const sectionIntervals = [
     { min: 210, max: 250, sectionName: 'Choix Multiples' },
-    { min: 150, max: 180, sectionName: 'Vrai ou Faux' },
+    { min: 150, max: 180, sectionName: 'Vrai Faux' },
     { min: 45, max: 60, sectionName: 'Contre la Montre' },
   ];
 

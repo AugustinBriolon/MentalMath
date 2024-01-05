@@ -1,16 +1,21 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { Grid, Heading, Button, Text, Strong } from '@radix-ui/themes';
-import AlertModal from '../components/AlertModal';
+import { Grid, Heading, Text, Strong } from '@radix-ui/themes';
 import { UpdateIcon } from "@radix-ui/react-icons"
+
+import AlertModal from '../components/AlertModal';
+import Chance from '../components/Chance';
 
 import getRandomNumber from '../utils/getRandomNumber';
 import getRandomOperator from '../utils/getRandomOperator';
 import performOperation from '../utils/performOperation';
+import { log } from 'console';
 
 export default function MultiChoices() {
   const [score, setScore] = useState(0);
+  const [chance, setChance] = useState(3);
+  const [noChance, setNoChance] = useState(false);
 
   const generateNewQuestion = () => {
     const randomNumber1 = getRandomNumber(1, 99);
@@ -35,8 +40,21 @@ export default function MultiChoices() {
     if (index === question.correctAnswerIndex) {
       setScore(score + 1);
       setQuestion(generateNewQuestion());
+    } else {
+      if (chance === 1) {
+        setNoChance(true);
+      }
+      setChance(chance - 1);
     }
   };
+
+  const handleRestartClick = () => {
+    
+    setScore(0);
+    setChance(3);
+    setNoChance(false);
+    setQuestion(generateNewQuestion());
+  }
 
   const [question, setQuestion] = useState<{
     question: string;
@@ -59,6 +77,7 @@ export default function MultiChoices() {
         <Heading as='h3' size='9'>
           {question.question}
         </Heading>
+        <Chance chance={chance} noChance={noChance} score={score} setState={handleRestartClick}/>
         <Grid columns='2' gap='4' width='auto'>
           {question.answers.map((number, index) => (
             <button
@@ -77,7 +96,7 @@ export default function MultiChoices() {
           modalTitle='Recommencer'
           modalText='Êtes-vous sûr de vouloir recommencer ?'
           modalButtonName='Recommencer'
-          setState={() => setScore(0)}
+          setState={() => handleRestartClick()}
           state={0}
         />
       </div>
