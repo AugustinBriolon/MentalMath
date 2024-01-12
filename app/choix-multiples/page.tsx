@@ -5,39 +5,45 @@ import { Grid, Heading, Text, Strong } from '@radix-ui/themes';
 import { UpdateIcon } from "@radix-ui/react-icons"
 
 import AlertModal from '../components/AlertModal';
-import Chance from '../components/Chance';
+import ChanceModal from '../components/ChanceModal';
 
 import getRandomNumber from '../utils/getRandomNumber';
 import getRandomOperator from '../utils/getRandomOperator';
 import performOperation from '../utils/performOperation';
-import { log } from 'console';
 
 export default function MultiChoices() {
   const [score, setScore] = useState(0);
-  const [chance, setChance] = useState(3);
+  const [chance, setChance] = useState(5);
   const [noChance, setNoChance] = useState(false);
 
   const generateNewQuestion = () => {
-    const randomNumber1 = getRandomNumber(1, 99);
-    const randomNumber2 = getRandomNumber(1, 99);
-    const randomOperator = getRandomOperator();
-    const result = performOperation(randomNumber1, randomNumber2, randomOperator);
-    const numbersArray = [
-      getRandomNumber(1, 99),
-      getRandomNumber(1, 99),
-      getRandomNumber(1, 99),
-      result,
-    ].sort(() => Math.random() - 0.5);
+    let randomNumber1, randomNumber2, result: number;
+    let uniqueNumbers = new Set<number>();
+
+    randomNumber1 = getRandomNumber(1, 99);
+    randomNumber2 = getRandomNumber(1, 99);
+    const operator = randomNumber1 < randomNumber2 ? '-' : getRandomOperator();
+    result = performOperation(randomNumber1, randomNumber2, operator);
+    uniqueNumbers.add(result);
+
+    while (uniqueNumbers.size < 4) {
+      const randomNum = getRandomNumber(1, 99);
+      if (!uniqueNumbers.has(randomNum)) {
+        uniqueNumbers.add(randomNum);
+      }
+    }
+    const numbersArray: number[] = [...uniqueNumbers].sort(() => Math.random() - 0.5);
 
     return {
-      question: `${randomNumber1} ${randomOperator} ${randomNumber2}`,
+      question: `${randomNumber1} ${operator} ${randomNumber2}`,
       answers: numbersArray,
       correctAnswerIndex: numbersArray.indexOf(result),
     };
   };
 
+
   const handleAnswerClick = (index: number) => {
-    if (index === question.correctAnswerIndex) {
+    if (index === question?.correctAnswerIndex) {
       setScore(score + 1);
       setQuestion(generateNewQuestion());
     } else {
@@ -49,9 +55,8 @@ export default function MultiChoices() {
   };
 
   const handleRestartClick = () => {
-    
     setScore(0);
-    setChance(3);
+    setChance(5);
     setNoChance(false);
     setQuestion(generateNewQuestion());
   }
@@ -60,11 +65,8 @@ export default function MultiChoices() {
     question: string;
     answers: number[];
     correctAnswerIndex: number;
-  }>({
-    question: '',
-    answers: [],
-    correctAnswerIndex: 0,
-  });
+  } | undefined>(undefined);
+
 
 
   useEffect(() => {
@@ -73,21 +75,44 @@ export default function MultiChoices() {
 
   return (
     <section className='h-screen-header max-w-default m-auto p-4 mx-auto'>
+      <h1 className='text-4xl font-bold text-start'>Choix Multiples</h1>
       <div className='flex flex-col items-center justify-center h-full space-y-8'>
-        <Heading as='h3' size='9'>
-          {question.question}
-        </Heading>
-        <Chance chance={chance} noChance={noChance} score={score} setState={handleRestartClick}/>
+        {
+          question ? (
+            <Heading as='h3' size='9'>
+              {question?.question}
+            </Heading>
+          ) : (
+            <Heading as='h3' size='9'>
+              Recherche d'un calcul...
+            </Heading>
+          )
+        }
+
+        <ChanceModal chance={chance} noChance={noChance} score={score} setState={handleRestartClick} />
+
         <Grid columns='2' gap='4' width='auto'>
-          {question.answers.map((number, index) => (
-            <button
-              key={number}
-              onClick={() => handleAnswerClick(index)}
-              className='p-8 text-2xl lg:text-4xl text-blue-800 dark:text-red-500 border rounded-md bg-blue-100 hover:bg-blue-200 dark:bg-blue-800 dark:hover:bg-blue-900'
-            >
-              {number}
-            </button>
-          ))}
+          {
+            question ? (
+              question?.answers.map((number, index) => (
+                <button
+                  key={number}
+                  onClick={() => handleAnswerClick(index)}
+                  className='p-8 min-w-32 text-2xl lg:text-4xl text-blue-800 dark:text-red-500 border rounded-md bg-blue-100 hover:bg-blue-200 dark:bg-blue-800 dark:hover:bg-blue-900'
+                >
+                  {number}
+                </button>
+              ))
+            ) : (
+              <>
+                {
+                  Array.from(Array(4), (_, i) => (
+                    <div key={i} className='p-8 min-w-32 text-2xl lg:text-4xl text-blue-100 hover:text-blue-200 dark:text-blue-800 dark:hover:text-blue-900 border rounded-md bg-blue-100 hover:bg-blue-200 dark:bg-blue-800 dark:hover:bg-blue-900'>0</div>
+                  ))
+                }
+              </>
+            )
+          }
         </Grid>
         <Text as="p" size="4">Scrore :  <Strong> {score}</Strong></Text>
         <AlertModal

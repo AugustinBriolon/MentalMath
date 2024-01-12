@@ -1,6 +1,6 @@
 {
-  "name": "Calcul mental",
-  "short_name": "",
+  "name": "MentalMath - Le calcul mental accecible à tous et facilement.",
+  "short_name": "MentalMath",
   "icons": [
     {
       "src": "/favicon/android-chrome-192x192.png",
@@ -13,6 +13,7 @@
       "type": "image/png"
     }
   ],
+  "start_url": "/",
   "theme_color": "#ffffff",
   "background_color": "#ffffff",
   "display": "standalone"

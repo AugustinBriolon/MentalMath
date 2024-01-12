@@ -6,7 +6,8 @@ import Header from './components/Header';
 import './globals.css'
 
 export const metadata: Metadata = {
-  title: 'MentalMath',
+  metadataBase: new URL('https://mentalmath.august1.dev/'),
+  title: 'MentalMath - Le calcul mental accecible à tous et facilement.',
   description: 'Le calcul mental accecible à tous et facilement.',
   manifest: '/favicon/manifest.json',
   icons: {
@@ -20,19 +21,26 @@ export const metadata: Metadata = {
   },
   openGraph: {
     type: 'website',
-    locale: 'fr_FR',
-    url: 'https://mentalmath.vercel.app/',
-    title: 'MentalMath',
+    url: 'https://mentalmath.august1.dev/',
+    title: 'MentalMath - Le calcul mental accecible à tous et facilement.',
     description: 'Le calcul mental accecible à tous et facilement.',
+    siteName: 'MentalMath',
+    images: [
+      {
+        url: '/favicon/android-chrome-512x512.png',
+      },
+    ],
+    locale: 'fr_FR',
   },
   keywords: ['calcul mental', 'mathématiques', 'apprentissage'],
-  authors: [{ name: 'Augustin Briolon' }],
-  alternates: { canonical: 'https://mentalmath.vercel.app/' },
+  authors: [{ name: 'Augustin Briolon', url: 'https://august1.dev' }],
+  alternates: { canonical: 'https://mentalmath.august1.dev/' },
   robots: 'index, follow',
   twitter: {
     card: 'summary_large_image',
-    site: '@ton_compte_twitter',
-    creator: '@ton_compte_twitter',
+    site: '@AugustinBriolon',
+    creator: '@AugustinBriolon',
+    images: "/favicon/android-chrome-512x512.png"
   }
 
 }

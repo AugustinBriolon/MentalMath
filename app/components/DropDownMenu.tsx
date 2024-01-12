@@ -1,6 +1,6 @@
-import React, { useRef, useEffect } from "react";
+import React, {  ReactNode, useState, useRef, useEffect } from "react";
 import Link from "next/link";
-import { ReactNode, useState } from "react";
+import { Box } from "@radix-ui/themes";
 import { CaretDownIcon } from "@radix-ui/react-icons";
 
 interface DropDownMenuProps {
@@ -31,7 +31,7 @@ export default function DropDownMenu({ name, items }: DropDownMenuProps) {
         <p>{name}</p>
         <CaretDownIcon />
       </button>
-      <div className={`absolute top-[30px] left-0 w-fit bg-white dark:bg-stone-800 border border-stone-200 dark:border-stone-800 rounded-md shadow ${isOpen ? 'block' : 'hidden'}`}>
+      <Box className={`absolute top-[30px] left-0 w-fit border border-stone-200 dark:border-stone-800 rounded-md shadow ${isOpen ? 'block' : 'hidden'}`}>
         <div className="flex flex-col w-full p-1 space-y-1">
           {items.map((item: string, index: number) => (
             <div key={index} onClick={() => setIsOpen(false)}>
@@ -41,7 +41,7 @@ export default function DropDownMenu({ name, items }: DropDownMenuProps) {
             </div>
           ))}
         </div>
-      </div>
+      </Box>
     </div>
   );
 }
