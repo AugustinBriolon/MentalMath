@@ -74,9 +74,9 @@ export default function MultiChoices() {
   }, []);
 
   return (
-    <section className='h-screen-header max-w-default m-auto p-4 mx-auto'>
+    <section className='h-screen-header max-w-default m-auto p-4 mx-auto space-y-12'>
       <h1 className='text-4xl font-bold text-start'>Choix Multiples</h1>
-      <div className='flex flex-col items-center justify-center h-full space-y-8'>
+      <div className='flex flex-col items-center justify-center space-y-8'>
         {
           question ? (
             <Heading as='h3' size='9'>

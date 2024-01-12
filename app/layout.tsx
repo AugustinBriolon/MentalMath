@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import '@radix-ui/themes/styles.css';
 import { Theme } from '@radix-ui/themes';
 import Header from './components/Header';
+import BuyMeCoffee from './components/BuyMeCoffee';
 
 import './globals.css'
 
@@ -56,6 +57,7 @@ export default function RootLayout({
         <Theme>
           <Header />
           {children}
+          <BuyMeCoffee />
         </Theme>
       </body>
     </html>

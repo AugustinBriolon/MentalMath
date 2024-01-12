@@ -66,12 +66,12 @@ export default function VraiFaux() {
   }, []);
 
   return (
-    <section className='h-screen-header max-w-default m-auto p-4 mx-auto'>
+    <section className='h-screen-header max-w-default m-auto p-4 mx-auto space-y-12'>
       <h1 className='text-4xl font-bold text-start'>Vrai ou Faux</h1>
-      <div className='flex flex-col items-center justify-center h-full space-y-8'>
+      <div className='flex flex-col items-center justify-center space-y-8'>
         {
           question ? (
-            <Heading as='h3' size='9'>
+            <Heading as='h3' size='9' className='text-center'>
               {question?.question} = {question?.answer}
             </Heading>
           ) : (
