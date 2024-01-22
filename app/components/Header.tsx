@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import Link from 'next/link'
 import { Button, IconButton, Heading } from "@radix-ui/themes"
-import { SunIcon, MoonIcon, GitHubLogoIcon } from "@radix-ui/react-icons"
+import { SunIcon, MoonIcon, GitHubLogoIcon, AvatarIcon } from "@radix-ui/react-icons"
 import DropDownMenu from "./DropDownMenu";
 
 export default function Header() {
@@ -24,7 +24,7 @@ export default function Header() {
     setRandomPageLink(randomPage());
   }, []);
 
-  
+
   const handleRandomPageClick = () => {
     setRandomPageLink(randomPage());
   }
@@ -48,6 +48,11 @@ export default function Header() {
         <div className="flex justify-end items-center space-x-4">
           <div className='hidden sm:flex items-center justify-end space-x-4'>
             <IconButton variant="ghost">
+              <a href="https://august1.dev/" target="_blank">
+                <AvatarIcon height="16" width="16" />
+              </a>
+            </IconButton>
+            <IconButton variant="ghost">
               <a href="https://github.com/AugustinBriolon/MentalMath" target="_blank">
                 <GitHubLogoIcon height="16" width="16" />
               </a>
@@ -67,6 +72,11 @@ export default function Header() {
           <DropDownMenu name="Jeux" items={pages} />
         </div>
         <div className='flex sm:hidden items-center justify-end space-x-4'>
+          <IconButton variant="ghost">
+            <a href="https://august1.dev/" target="_blank">
+              <AvatarIcon height="16" width="16" />
+            </a>
+          </IconButton>
           <IconButton variant="ghost">
             <a href="https://github.com/AugustinBriolon/MentalMath" target="_blank">
               <GitHubLogoIcon height="16" width="16" />
