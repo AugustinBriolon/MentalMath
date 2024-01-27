@@ -76,7 +76,7 @@ export default function VraiFaux() {
             </Heading>
           ) : (
             <Heading as='h3' size='9'>
-              Recherche d'un calcul...
+              Recherche du calcul...
             </Heading>
           )
         }
